@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Laboratorio QPSS</title>
+		<link rel="stylesheet" href="styles/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+		<script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+		
+		<script>
+			let indexTutti = 0
+			let indexIntrusivi = 0
+			let indexAnsia = 0
+		
+			function inizio() {
+				document.getElementById("altro").hidden = true;
+				document.getElementById("inizioDiv").hidden = true;
+				document.getElementById("tipo").hidden = true;
+				document.getElementById("intrusivi").hidden = true;
+				document.getElementById("ansia").hidden = true;
+				document.getElementById("btnFile").hidden = true;
+				document.getElementById("hr1").hidden = true;
+				document.getElementById("hr2").hidden = true;
+			}
+		
+			function postCaricamento() {
+				location.href = "#"
+			
+				document.getElementById("file").hidden = true;
+				document.getElementById("altro").hidden = false;
+				document.getElementById("inizioDiv").hidden = false;
+				document.getElementById("tipo").hidden = false;
+				document.getElementById("intrusivi").hidden = false;
+				document.getElementById("ansia").hidden = false;
+				document.getElementById("hr1").hidden = false;
+				document.getElementById("hr2").hidden = false;
+				
+				document.getElementById("precTipo").hidden = true;
+				document.getElementById("precIntrusivi").hidden = true;
+				document.getElementById("precAnsia").hidden = true;
+				
+				tutti.sort()
+				
+				document.getElementById("fraseTipo").innerHTML = tutti[0];
+				document.getElementById("fraseIntrusivi").innerHTML = intrusivi[0];
+				document.getElementById("fraseAnsia").innerHTML = ansia[0];
+			}
+			
+			function precedenteTutti() {
+				indexTutti = indexTutti - 1;
+				document.getElementById("prossTipo").hidden = false;
+				
+				if (indexTutti == 0) {
+					console.log("nascondi")
+					document.getElementById("precTipo").hidden = true;
+				}
+				
+				document.getElementById("fraseTipo").innerHTML = tutti[indexTutti];
+				location.href = "#tipo"
+			}
+			
+			function prossimoTutti() {
+				indexTutti = indexTutti + 1;
+				document.getElementById("precTipo").hidden = false;
+				
+				if (indexTutti == tutti.length-1) {
+					document.getElementById("prossTipo").hidden = true;
+				}
+				
+				document.getElementById("fraseTipo").innerHTML = tutti[indexTutti];
+				location.href = "#tipo"
+			}
+			
+			function precedenteIntrusivi() {
+				indexIntrusivi = indexIntrusivi - 1;
+				document.getElementById("prossIntrusivi").hidden = false;
+				
+				if (indexIntrusivi == 0) {
+					document.getElementById("precIntrusivi").hidden = true;
+				}
+				
+				document.getElementById("fraseIntrusivi").innerHTML = intrusivi[indexIntrusivi];
+				location.href = "#intrusivi"
+			}
+			
+			function prossimoIntrusivi() {
+				indexIntrusivi = indexIntrusivi + 1;
+				document.getElementById("precIntrusivi").hidden = false;
+				
+				if (indexIntrusivi == intrusivi.length-1) {
+					document.getElementById("prossIntrusivi").hidden = true;
+				}
+				
+				document.getElementById("fraseIntrusivi").innerHTML = intrusivi[indexIntrusivi];
+				location.href = "#intrusivi"
+			}
+			
+			function precedenteAnsia() {
+				indexAnsia = indexAnsia - 1;
+				document.getElementById("prossAnsia").hidden = false;
+				
+				if (indexAnsia == 0) {
+					document.getElementById("precAnsia").hidden = true;
+				}
+				
+				document.getElementById("fraseAnsia").innerHTML = ansia[indexAnsia];
+				location.href = "#ansia"
+			}
+			
+			function prossimoAnsia() {
+				indexAnsia = indexAnsia + 1;
+				document.getElementById("precAnsia").hidden = false;
+				
+				if (indexAnsia == ansia.length-1) {
+					document.getElementById("prossAnsia").hidden = true;
+				}
+				
+				document.getElementById("fraseAnsia").innerHTML = ansia[indexAnsia];
+				location.href = "#ansia"
+			}
+		</script>
+	</head>
+	
+	<body onload="inizio()">
+		<div id="altro">
+			<div class="scrollToTop-btn">
+				<i class="fas fa-angle-up"></i>
+			</div>
+
+			<header>
+				<a href="#" class="brand">LABORATORIO</a>
+				<div class="menu-btn"></div>
+				<div class="navigation">
+					<a href="#inizio">Inizio</a>
+					<a href="#tipo">Indovina il tipo</a>
+					<a href="#intrusivi">Pensieri intrusivi</a>
+					<a href="#ansia">Momenti di ansia</a>
+				</div>
+			</header>
+		</div>
+		
+		<div id="file">
+			<section class="about" id="about">
+				<center>
+					<div class="title">
+						<h2 class="section-title-dark">Lettura file Excel con le risposte</h2>
+					</div>
+					<div class="content">
+						<div class="column col-left">
+							<div class="card">
+								<div class="service-icon">
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEy0lEQVR4nO2cTWhcVRTHbwWrKCrqShcGrDjnvMk5Uxk/N8WFi/hGiyIKiojiysxECPgBggQVF0pduFE3boourFCkCGbumZgILlwYFUnmJbUKlVK60EJqsVRjR+6kZhHSONO5M/fdyfnB2WSRN+f/n/txzr1vjFEURVEURVEURVEURVEURVH6zBdluKHB+KwQ7LeM85bxN0vwlyX80xIea/+N4IM6FZ4WgOvVEE9IqXCvEH4uhKvC2Oos4KwQHpRRuEeNuEimk+QWIZzuXHTcPAgPztyGI2pEN996hqeE4HTP4vP6iDgpXHhETegAS/CyP+FxoxGvqglbio+v9098bIclfEVNuNC002fxxRnAeK4xig9t9hlmisVdQjAphHXLuNSeBtemwkwYGm50To/eCkO64Pqc8/H/FuYVSZKb1p9fLJYsw2fOnA5H0WyjlNxphgUvux3uej04cCBJdlqGtzsVfuNIEoL33f8w0e/zBy4+/heZByO/mk6S60ystIuscAa0PMXct+XypSbG9oIl+DsHArZ6DoL3TGy0ezuhhWM/4dYES3C3iQnXWAstnPg0gfBLExOugxlaNPEcM1QomFhwLeXQgonnaBC+ZGKh3TbOgWjiMSyjNbFgGc8MoQFLJhaE8PjwGQB/mFiwBIuhBZM+hMkrh8rlK+xo8oxl+MgSLl9MD0ZiCILT7W4q45wwvOkady1jdgQT/utC4SrL8NbayVQOBOIQpuAv9RI+OWXMJQMVXzgZE4ajwQXgnATB9wM7U3CHLEPT62F/YRlPWUr29lX8OkE11Byf1SpdRZiRgKsNwvv7Iz7jXSGLrCwGA86PhJkSFj2Lz1cKw6+hkpKIDGibQPCd14XZMr4QMiGJzAAXbnfkRfzZkZHLLcOJ0AllkRlgGX/2UiesbTnDJiMRGtCO3cU7ejbAErwbPBGO0wDL8EbvI4Dgm9CJSKwGEM72bkDg3Y/EbcDy0PT3sxgNYDzlYwTkotmWRWiAuy45NP39LEIDvJykhbnjicNhgI8rLUL4YuhEJFIDhPA1P9fMQyfCcRpQJyj3bEBeaoEsMgMswxFvR5Z1wj2hE8piM4DgceMTITykBmCH336c935O7F5YEIafdATg1gYQrjR2J4npB+6kRxh+1ykILyT+quse90X8dROKxV0hirMs52uAazvUufCgGQRSvvkaS/Bhd7/1MLwGWMb5IFfY3ZRkGT51v26yHQ2wDEeECk8M/GLWZof29RI8LIT7hPFj95ahW7B9XmHJQhtw/uVu115wBy12tHB70KuJgybr0oDQn3foyNQANWBbk+kI6Jew6TvdiusrmtV0n9nutIzZkdUq+wcufq3ySWtqKuz2MS8sTD26M6tWZGAGVNO5wxNjl4XOO1ccnhi7ullNf+i/AenCj89Vrg2dby7JqntvzKrp0f5NO+mxhecfWP9RJ2UTFibGkqxWOel/wa2sLNcqpc2eqWxgcTzd06xVznic888u1ir3bXyOsgVL4+ljzWr6j4fdzrmlWurnrv52o1lLxz3M+5Oh89i2hVpTC61whVpTC62AhVpVC62AhVqqhVaoQq2phVa4Qq2phVbAQq2qhVawQq2phVY4mrV0UgstRVEURVEURVEURVEUxUTCv010kDSgPFqLAAAAAElFTkSuQmCC">								</div>
+								<div class="info">
+									<h3>SCARICARE IL FILE</h3>
+									<p class="paragraph-text">Puoi scaricare il file Excel con le risposte <a href="https://docs.google.com/spreadsheets/d/1YMgattBKhDeUvXDdbepw3_YgknKIC2MOAaodspsUgAo/edit?usp=sharing" target="_blank">qui</a>!</p>
+								</div>
+							</div>
+						</div>
+						<div class="column col-right">
+							<div class="card">
+								<div class="service-icon">
+									<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAEAElEQVR4nO2bS08UQRSFiY+FLNWV+gcYsYGQMRJAicqrqiMmMIouSRyQahas0BUrH2sf+CPc+VjViCGRBTiBKEzfwR3oSmWPqzI1aCQG5tk9t6v6nuQmJJPMhPNVnaquut3QQCKRSCQSiUSqQtJpUobVY6tAR8BQFWsIETBTxRpCBIxU5dTyUKedELCNlWUWeNxOCCYBABshmAYAbINgIgCwCYKpAMAWCCYDABsgmA4ATIdgAwAwGYItAMBUCDYBABMh2AYATINgIwAwCYKtAMAUCDYDABMg2A4Aog4hDgAgyhDiAgAOgIDtf6wAwD4QsP03BoAMqbD9JwDYwh6BkmYAvgmSIgjfCIlU2AlEEYQt7BEoaQbgmyApgvCNkEiFnUAUQdjCHoGSZgC+CZIiCN8IiVTYCUQRhC3sEShpBuCbICmC8I2QSIWdQBRB2MIegZJmAL4JkiII3wiJVNgJRBGELewRKGkG4JsgKYLwjZBIhZ1AFEHYwh6BkmYAvgmSIsiuyjgJtdDVppbcDrUy2qPWxvpUbmJQgeCF0n+vjfUWPvMFv+9PDVxQs7OHKIKc2oyfT54rdD+vp/sr7pr2Bf8Kgj/6MjVwhtYAp0Lj25tVdrhb+ZOs9hZ2wX75HpvzxfUTtAg7pc1fvJpUufHBwN4f+FfsZ85zb9IuyDnA/JYmlR25GILx/0WTx168n710hLahzp5FtjWhVm9fDt38f7HE32TTbiM9Bzi7I7+u5u+BEMpMwN4yygqrHrFTJI7mYg1gsTdZsWmlVOn35SfZjVgCeNferHITA+gA9O4on3ZPxg5Adri7qtgIHkChnsUKwHyyueqHrDAA+ILvbIzz07EBsDzUWfXCGdIM0FH0MBYAMi0JtX6nP3IAfI99U6nUYesBLHS11TBKw5wBXG14/Lz1AJbcjsgC8D12z3oAK7d6ajK4VhUFINhL6wGsjfVGF4DHP1sPIFfiqBkXAPthPQC/xP4fFYDgOwQgZMUeQI4iiBZhiPMivELbUFwAS1F+EBN8xvoZsNDVGlkA+btu0noAmYgexoFgm4F002EbLA09jvYFe1Cz+aYAmKcLGXwIHyN0Jel7/Ekgo9+UGSALl/JnI3MpH2jfKLaxsoL6cAW/LQWm+Ehg5psGQBa6I/Aas0Cwp4GabyKAjJNQq6PFL2lCqtehNumapGzabQSPva2X+b5gr7amU8ew/+9IKZtuP6pbx+sROzTyi0i/RKFvpoIf9fx73uOpYr9N+iO9LQTBn+sbqgCM39Gjfn267/jf7yeVKd0uqF+0A49tVRE1m/p4AcS1U+X+Hqlhf+lDMt00pft2dOuIvjgBwbf1C3i7xbd9j30qfCb4jD7VrPZg7TeUYA615akDsgAAAABJRU5ErkJggg==">				
+								</div>
+								<div class="info">
+									<h3>SELEZIONARE IL FILE</h3>
+									<p class="paragraph-text">Seleziona il file Excel con le risposte nella cartella in cui si trova</p><br>
+									<input type="file" id="fileExcel" accept=".xlsx"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br><br>
+					<div id="btnFile">
+						<p class="paragraph-text"><strong>File caricato correttamente!</strong></p>
+						<a onclick="postCaricamento()" class="btn">Continua</a>
+					</div>
+				</center>
+			</section>
+		</div>
+
+		<div id="inizioDiv">
+			<section class="home" id="inizio">
+				<div class="content">
+					<h2>Benvenuti al terzo incontro sulla <strong>gestione dei momenti di ansia e dei pensieri intrusivi</strong></h2>
+					<a href="#tipo" class="btn">Indovina il tipo</a>
+					<a href="#intrusivi" class="btn">Pensieri intrusivi</a>
+					<a href="#ansia" class="btn">Momenti di ansia</a>
+				</div>
+			</section>
+		</div>
+
+		<section class="regulation" id="tipo">
+			<div class="title reveal">
+				<h2 class="section-title-dark">Indovina il tipo</h2>
+			</div>
+			<div class="content">
+				<p class="rule-text reveal" id="fraseTipo"></p></br>
+				<div style="float:left;text-align:left;padding-right:10px;" id="precTipo">
+					<a onclick="precedenteTutti()" class="btn">&#8920; Precedente</a>
+				</div>
+				<div style="float:right;text-align:right;padding-left:10px;" id="prossTipo">
+					<a onclick="prossimoTutti()" class="btn">Successivo &#8921;</a>
+				</div>
+			</div>
+		</section>
+		
+		<hr style="height:5px;background-color:#bb2e29;" id="hr1">
+		
+		<section class="regulation" id="intrusivi">
+			<div class="title reveal">
+				<h2 class="section-title-dark">Pensieri intrusivi</h2>
+			</div>
+			<div class="content">
+				<p class="rule-text reveal" id="fraseIntrusivi"></p></br>
+				<div style="float:left;text-align:left;padding-right:10px;" id="precIntrusivi">
+					<a onclick="precedenteIntrusivi()" class="btn">&#8920; Precedente</a>
+				</div>
+				<div style="float:right;text-align:right;padding-left:10px;" id="prossIntrusivi">
+					<a onclick="prossimoIntrusivi()" class="btn">Successivo &#8921;</a>
+				</div>
+			</div>
+		</section>
+		
+		<hr style="height:5px;background-color:#bb2e29;" id="hr2">
+		
+		<section class="regulation" id="ansia">
+			<div class="title reveal">
+				<h2 class="section-title-dark">Momenti di ansia</h2>
+			</div>
+			<div class="content">
+				<p class="rule-text reveal" id="fraseAnsia"></p></br>
+				<div style="float:left;text-align:left;padding-right:10px;" id="precAnsia">
+					<a onclick="precedenteAnsia()" class="btn">&#8920; Precedente</a>
+				</div>
+				<div style="float:right;text-align:right;padding-left:10px;" id="prossAnsia">
+					<a onclick="prossimoAnsia()" class="btn">Successivo &#8921;</a>
+				</div>
+			</div>
+		</section>
+		
+		<script src="scripts/script.js" charset="utf-8"></script>
+		
+		<script>
+			const input = document.getElementById("fileExcel");
+			const intrusivi = [];
+			const ansia = [];
+			const tutti = [];
+			let counterRighe = 1;
+			let counterColonna = 1;
+
+			input.addEventListener('change', (event) => {
+				const file = event.target.files[0];
+
+				readXlsxFile(file).then((rows) => {
+					rows.forEach((row) => {
+						row.forEach((cell) => {							
+							if (counterRighe > 1) {
+								if (counterColonna == 2) {
+									intrusivi[intrusivi.length] = cell;
+									tutti[tutti.length] = cell;
+								}
+								if (counterColonna == 3) {
+									ansia[ansia.length] = cell;
+									tutti[tutti.length] = cell;
+								}
+							}
+							
+							counterColonna = counterColonna + 1;
+							if (counterColonna == 4) {
+								counterColonna = 1;
+								counterRighe = counterRighe + 1;
+							}
+							
+						});
+					});
+				});
+				
+				document.getElementById("btnFile").hidden = false;
+				location.href = "#btnFile"
+				
+				console.log(tutti);
+				console.log(intrusivi);
+				console.log(ansia);
+			});
+		</script>
+	</body>
+</html>
